@@ -17,9 +17,9 @@ nav a:hover{color:#b9a0ff}
 .hero p{font-size:20px;color:#ddd;margin-bottom:30px}
 .button{display:inline-block;padding:14px 30px;background:white;color:black;text-decoration:none;font-weight:bold;border-radius:3px}
 .button:hover{background:#b9a0ff}
-.experience{height:140vh;position:relative}
+.experience{height:180vh;position:relative}
 .experience-frame{height:100vh;position:sticky;top:80px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.experience-image{width:min(75vw,1000px);height:min(65vh,650px);object-fit:cover;opacity:0;transform:translateX(-45vw) scale(.9);will-change:transform,opacity}
+.experience-image{width:min(75vw,1000px);height:min(65vh,650px);object-fit:cover;opacity:0;transform:translateX(-55vw) scale(.92);will-change:transform,opacity}
 .experience-title{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap;opacity:0}
 .experience-title h2{font-size:42px;margin-bottom:10px}
 .experience-title p{font-size:18px;color:#aaa}
@@ -139,18 +139,13 @@ const rect=experience.getBoundingClientRect();
 const total=experience.offsetHeight-window.innerHeight;
 let progress=-rect.top/total;
 progress=Math.max(0,Math.min(1,progress));
-let imageProgress;
-if(progress<.5){
-imageProgress=progress*2;
-}else{
-imageProgress=1;
-}
-const x=-45+(45*imageProgress);
-const scale=.9+(.1*imageProgress);
-const opacity=imageProgress;
+const entrance=Math.min(1,progress/0.55);
+const eased=1-Math.pow(1-entrance,3);
+const x=-55+(55*eased);
+const scale=.92+(.08*eased);
 image.style.transform=`translateX(${x}vw) scale(${scale})`;
-image.style.opacity=opacity;
-const titleProgress=Math.max(0,Math.min(1,(progress-.35)/.25));
+image.style.opacity=eased;
+const titleProgress=Math.max(0,Math.min(1,(progress-.45)/.2));
 title.style.opacity=titleProgress;
 }
 window.addEventListener("scroll",animateExperience,{passive:true});
