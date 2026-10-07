@@ -348,13 +348,11 @@
         © 2026 Azteka Studios. All Rights Reserved.
     </footer>
 <script>
-
     const phone = document.querySelector(".phone");
 
     window.addEventListener("scroll", function() {
 
         const section = document.querySelector(".experience");
-
         const rect = section.getBoundingClientRect();
 
         const distance = section.offsetHeight - window.innerHeight;
@@ -365,12 +363,11 @@
 
         const rotation = Math.sin(progress * Math.PI * 2) * 12;
 
-        phone.style.transform =
-            `rotateY(${rotation}deg)`;
-
+        phone.style.transform = `rotateY(${rotation}deg)`;
     });
-
 </script>
+
+</body>
 </body>
 </html>
 ```
