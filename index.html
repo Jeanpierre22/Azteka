@@ -12,28 +12,29 @@ header{height:80px;display:flex;justify-content:space-between;align-items:center
 .logo{font-size:25px;font-weight:bold;letter-spacing:2px}
 nav a{color:white;text-decoration:none;margin-left:30px;font-size:15px}
 nav a:hover{color:#b9a0ff}
-
-/* HERO SLIDESHOW */
+ 
+/* HERO SLIDESHOW (slides in from the right) */
 .hero{position:relative;min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px;overflow:hidden}
-.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease-in-out;z-index:0}
-.hero-slide.active{opacity:1}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;transform:translateX(100%);z-index:0}
+.hero-slide.active{transform:translateX(0);transition:transform 1.2s cubic-bezier(.77,0,.18,1)}
+.hero-slide.exit{transform:translateX(-100%);transition:transform 1.2s cubic-bezier(.77,0,.18,1)}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75));z-index:1}
 .hero-content{position:relative;z-index:2}
 .hero h1{font-size:clamp(45px,8vw,90px);letter-spacing:3px;margin-bottom:20px}
 .hero p{font-size:20px;color:#ddd;margin-bottom:30px}
-
+ 
 .button{display:inline-block;padding:14px 30px;background:white;color:black;text-decoration:none;font-weight:bold;border-radius:3px}
 .button:hover{background:#b9a0ff}
+ 
+/* EXPERIENCE SECTION (scroll-driven, Apple style) */
 .experience{height:120vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.experience-image{width:min(75vw,1000px);height:min(65vh,650px);object-fit:cover;opacity:0;transform:translateX(-100vw);transition:transform 1.8s cubic-bezier(.16,1,.3,1),opacity 1.2s ease}
-.experience-image.show{opacity:1;transform:translateX(0)}
+.experience-image{width:min(75vw,1000px);height:min(65vh,650px);object-fit:cover;opacity:0;transform:translateX(-60vw);will-change:transform,opacity}
 .experience-content{text-align:center}
-.experience-title{margin-top:30px;opacity:0;transform:translateY(20px);transition:opacity 1s ease .7s,transform 1s ease .7s}
-.experience-title.show{opacity:1;transform:translateY(0)}
+.experience-title{margin-top:30px;opacity:0;transform:translateY(20px);will-change:transform,opacity}
 .experience-title h2{font-size:42px;margin-bottom:10px}
 .experience-title p{font-size:18px;color:#aaa}
+ 
 section{padding:90px 8%}
-.hero{padding:40px 20px}
 .section-title{text-align:center;font-size:40px;margin-bottom:50px}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .gallery img{width:100%;height:350px;object-fit:cover;transition:.3s}
@@ -48,6 +49,11 @@ video{width:100%;display:block}
 .contact{text-align:center;background:#151515}
 .contact p{color:#bbb;margin-bottom:30px}
 footer{padding:30px;text-align:center;background:#050505;color:#777}
+ 
+/* REVEAL ON SCROLL (stays until refresh) */
+.reveal{opacity:0;transform:translateY(70px);transition:opacity 1.2s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+ 
 @media(max-width:750px){
 header{padding:0 5%}
 nav a{margin-left:10px;font-size:13px}
@@ -55,7 +61,6 @@ nav a{margin-left:10px;font-size:13px}
 .gallery img{height:250px}
 .services{grid-template-columns:1fr}
 section{padding:60px 5%}
-.hero{padding:40px 20px}
 .experience-image{width:88vw;height:55vh}
 .experience-title h2{font-size:30px}
 }
@@ -76,7 +81,7 @@ nav{display:none}
 <a href="#contact">Contact</a>
 </nav>
 </header>
-
+ 
 <section class="hero" id="home">
 <div class="hero-slide active" style="background-image:url('images/slide1.jpg')"></div>
 <div class="hero-slide" style="background-image:url('images/slide2.jpg')"></div>
@@ -88,7 +93,7 @@ nav{display:none}
 <a href="#contact" class="button">BOOK A SESSION</a>
 </div>
 </section>
-
+ 
 <section class="experience">
 <div class="experience-content">
 <img class="experience-image" src="images/az1.jpg" alt="Azteka Studios Photography">
@@ -98,7 +103,7 @@ nav{display:none}
 </div>
 </div>
 </section>
-
+ 
 <section id="photos">
 <h2 class="section-title">Photography</h2>
 <div class="gallery">
@@ -110,7 +115,7 @@ nav{display:none}
 <img src="images/photo6.jpg" alt="Photography">
 </div>
 </section>
-
+ 
 <section id="videos">
 <h2 class="section-title">Featured Video</h2>
 <div class="video-container">
@@ -120,7 +125,7 @@ Your browser does not support video playback.
 </video>
 </div>
 </section>
-
+ 
 <section id="services">
 <h2 class="section-title">Services</h2>
 <div class="services">
@@ -138,47 +143,71 @@ Your browser does not support video playback.
 </div>
 </div>
 </section>
-
+ 
 <section>
 <h2 class="section-title">About</h2>
 <div class="about">
 <p>Azteka Studios is a photography and videography studio focused on creating clean, cinematic and memorable visuals. From personal portraits to major events, every project is treated with attention to detail.</p>
 </div>
 </section>
-
+ 
 <section class="contact" id="contact">
 <h2 class="section-title">Let's Create Something</h2>
 <p>Have a project, event, or special moment coming up?</p>
 <a href="" class="button">CONTACT ME</a>
 </section>
-
+ 
 <footer>© 2026 Azteka Studios. All Rights Reserved.</footer>
-
+ 
 <script>
-// Scroll animation for the experience section
-const image=document.querySelector(".experience-image");
-const title=document.querySelector(".experience-title");
-const observer=new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-image.classList.add("show");
-title.classList.add("show");
-}else{
-image.classList.remove("show");
-title.classList.remove("show");
-}
-});
-},{threshold:.35});
-observer.observe(document.querySelector(".experience"));
-
-// Hero slideshow
+// Hero slideshow (slides in from the right)
 const slides=document.querySelectorAll(".hero-slide");
 let current=0;
 setInterval(()=>{
-slides[current].classList.remove("active");
+const prev=slides[current];
 current=(current+1)%slides.length;
-slides[current].classList.add("active");
+const next=slides[current];
+prev.classList.remove("active");
+prev.classList.add("exit");
+next.classList.add("active");
+setTimeout(()=>prev.classList.remove("exit"),1300);
 },5000);
+ 
+// Experience section: image slides in as you scroll, then stays
+const image=document.querySelector(".experience-image");
+const title=document.querySelector(".experience-title");
+const exp=document.querySelector(".experience");
+ 
+function scrollAnimate(){
+const r=exp.getBoundingClientRect();
+const vh=window.innerHeight;
+let p=(vh-r.top)/(vh*0.8);
+p=Math.max(0,Math.min(1,p));
+const e=1-Math.pow(1-p,3);
+image.style.opacity=e;
+image.style.transform="translateX("+((1-e)*-60)+"vw)";
+const t=Math.max(0,(p-.6)/.4);
+title.style.opacity=t;
+title.style.transform="translateY("+((1-t)*20)+"px)";
+}
+window.addEventListener("scroll",scrollAnimate,{passive:true});
+window.addEventListener("resize",scrollAnimate);
+scrollAnimate();
+ 
+// Reveal everything below as you scroll (stays once shown)
+const items=document.querySelectorAll(".section-title,.gallery,.video-container,.service,.about,.contact p,.contact .button,footer");
+items.forEach(el=>el.classList.add("reveal"));
+document.querySelectorAll(".service").forEach((el,i)=>el.style.transitionDelay=(i*0.15)+"s");
+const revealObserver=new IntersectionObserver((entries,obs)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+obs.unobserve(entry.target);
+}
+});
+},{threshold:.15});
+items.forEach(el=>revealObserver.observe(el));
 </script>
 </body>
 </html>
+ 
